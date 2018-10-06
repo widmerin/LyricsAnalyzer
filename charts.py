@@ -1,10 +1,13 @@
 from bs4 import BeautifulSoup
 from datetime import datetime, timedelta
 import requests
+import json
 
 #  Collect swiss charts data
-#  From current date 30.09.2018 until ??
-#  Save Data as: Song | Artist| Date | Ranking
+#  From current date until ??
+#  Save Data as: Song | Artist | Date | Ranking
+
+data = []          # list of fetched data
 
 # Get Charts data for given date
 def getChartsData(date, limit):
@@ -19,21 +22,31 @@ def getChartsData(date, limit):
         artist = links[i].find("b").getText()
         song = links[i].find('br').nextSibling
 
-        print(str(i + 1) + ". " + artist + " - " + str(song))
-        ## ToDo: Save artist, song, date and ranking in List?
+        #print(str(i + 1) + ". " + artist + " - " + str(song))
+        data.append([artist, str(song), date, str(i + 1)])
+
+
 
 def main():
-    charts_date = datetime(2018, 9, 30) # Startdate
+    charts_date = datetime.now() # Startdate .now()
+    fetch_dateS = charts_date.strftime("%d-%m-%Y")
 
-    weeks = 25  # how many weeks should be saved
-    limit = 15  # songs per charts
+    records = 3        # how many records should be saved
+    limit = 15         # songs per charts
+    daysdelta = 30     # 30=month, 7=week   inbetween charts
 
 
-    for i in range(weeks):
+    for i in range(records):
         print("Charts: "+charts_date.strftime("%d.%m.%Y"))
 
         getChartsData(charts_date.strftime("%d-%m-%Y"), limit)
-        charts_date = charts_date - timedelta(days=7) # get date from week before
+        charts_date = charts_date - timedelta(days=daysdelta)  # get date from daysdelta before
+
+    print(data);
+    with open('data/data-'+fetch_dateS+'.json', 'w') as outfile:
+        json.dump(data, outfile)
+
+
 
 if __name__ == '__main__':
   main()
