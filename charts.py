@@ -4,8 +4,8 @@ import requests
 import json
 
 #  Collect swiss charts data
-#  From current date until ??
-#  Save Data as: Song | Artist | Date | Ranking
+#  From current date 7.10.2018) until ??
+#  Save Data as json: Song | Artist | Date | Ranking
 
 data = []          # list of fetched data
 
@@ -18,31 +18,56 @@ def getChartsData(date, limit):
     soup = BeautifulSoup(page.content, 'html.parser')
     links = soup.findAll("a", {"class": "navb"})
 
+
     for i in range(limit):
         artist = links[i].find("b").getText()
         song = links[i].find('br').nextSibling
+        print(str(i + 1) + ". " + artist + " - " + str(song))
+        # Get Lyrcs for song with api.lyrics.ovh
+        lyrics = getLyrics(artist,song)
 
-        #print(str(i + 1) + ". " + artist + " - " + str(song))
-        data.append([artist, str(song), date, str(i + 1)])
+        # If no lyrcs was found try with suggest Request
+        if len(lyrics) == 0:
+            req = requests.get('https://api.lyrics.ovh/suggest/' + song + " " + artist)
 
+            # Get Lyrcs for song
+            if (req.status_code == 200 and json.loads(req.content)["data"]):
+                artist = json.loads(req.content)["data"][0]["artist"]["name"]
+                song = json.loads(req.content)["data"][0]["title"]
+                lyrics = getLyrics(artist, song)
+
+        if len(lyrics) > 0:
+            data.append({"artist": artist, "title": song, "date": date, "ranking": str(i + 1), "lyrics": lyrics})
+        else:
+           print(" No lyrics was found https://api.lyrics.ovh/suggest/" + song + " " + artist)
+
+def getLyrics(artist, song):
+    lyrics = ""
+    req = requests.get('https://api.lyrics.ovh/v1/' + artist + '/' + song)
+
+    if(req.status_code == 200):
+        # Decode and save lyrics content
+        lyrics = json.loads(req.content.decode('utf-8'))['lyrics']
+        lyrics = lyrics.replace('\r', '')
+
+    return lyrics
 
 
 def main():
-    charts_date = datetime.now() # Startdate .now()
+    charts_date = datetime(2018,10,7) # Startdate
     fetch_dateS = charts_date.strftime("%d-%m-%Y")
 
     records = 3        # how many records should be saved
     limit = 15         # songs per charts
-    daysdelta = 30     # 30=month, 7=week   inbetween charts
+    daysdelta = 28     # 28=month, 7=week   inbetween charts
 
 
     for i in range(records):
         print("Charts: "+charts_date.strftime("%d.%m.%Y"))
-
         getChartsData(charts_date.strftime("%d-%m-%Y"), limit)
         charts_date = charts_date - timedelta(days=daysdelta)  # get date from daysdelta before
 
-    print(data);
+    print(data)
     with open('data/data-'+fetch_dateS+'.json', 'w') as outfile:
         json.dump(data, outfile)
 
