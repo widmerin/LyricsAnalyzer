@@ -22,7 +22,10 @@ def getChartsData(date, limit):
     for i in range(limit):
         artist = links[i].find("b").getText()
         song = links[i].find('br').nextSibling
+
+
         print(str(i + 1) + ". " + artist + " - " + str(song))
+
         # Get Lyrcs for song with api.lyrics.ovh
         lyrics = getLyrics(artist,song)
 
@@ -37,10 +40,12 @@ def getChartsData(date, limit):
                 song = json.loads(req.content)["data"][0]["title"]
                 lyrics = getLyrics(artist, song)
 
-        if len(lyrics) > 0:
-            data.append({"artist": artist, "title": song, "date": date, "ranking": str(i + 1), "lyrics": lyrics})
-        else:
+
+        data.append({"artist": artist, "title": song, "date": date, "ranking": str(i + 1), "lyrics": lyrics})
+
+        if len(lyrics) == 0:
            print(" No lyrics was found https://api.lyrics.ovh/suggest/" + song + " " + artist)
+
 
 def getLyrics(artist, song):
     lyrics = ""
@@ -50,7 +55,7 @@ def getLyrics(artist, song):
         # Decode and save lyrics content
         lyrics = json.loads(req.content.decode('utf-8'))['lyrics']
         lyrics = lyrics.replace('\r', '')
-
+        lyrics = lyrics.replace('\n', ' ')
     return lyrics
 
 
@@ -58,9 +63,9 @@ def main():
     charts_date = datetime(2018,10,7) # Startdate
     fetch_dateS = datetime.now().strftime("%d-%m-%Y")
 
-    records = 1        # how many records should be saved
+    records = 5        # how many records should be saved (80 = 20 years)
     limit = 15         # songs per charts
-    daysdelta = 28     # 28=month, 7=week   inbetween charts
+    daysdelta = 84     # 28=month, 7=week   inbetween charts
 
 
     for i in range(records):
