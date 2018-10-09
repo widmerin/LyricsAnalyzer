@@ -32,6 +32,7 @@ def getChartsData(date, limit):
 
             # Get Lyrcs for song
             if (req.status_code == 200 and json.loads(req.content)["data"]):
+                # Get artist and Song from first title
                 artist = json.loads(req.content)["data"][0]["artist"]["name"]
                 song = json.loads(req.content)["data"][0]["title"]
                 lyrics = getLyrics(artist, song)
@@ -55,9 +56,9 @@ def getLyrics(artist, song):
 
 def main():
     charts_date = datetime(2018,10,7) # Startdate
-    fetch_dateS = charts_date.strftime("%d-%m-%Y")
+    fetch_dateS = datetime.now().strftime("%d-%m-%Y")
 
-    records = 3        # how many records should be saved
+    records = 1        # how many records should be saved
     limit = 15         # songs per charts
     daysdelta = 28     # 28=month, 7=week   inbetween charts
 
