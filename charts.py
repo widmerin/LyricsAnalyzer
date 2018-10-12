@@ -22,46 +22,42 @@ def getChartsData(date, limit):
     for i in range(limit):
         artist = links[i].find("b").getText()
         song = links[i].find('br').nextSibling
-
-
         print(str(i + 1) + ". " + artist + " - " + str(song))
-
         # Get Lyrcs for song with api.lyrics.ovh
-        lyrics = getLyrics(artist,song)
+        [status, lyrics] = getLyrics(artist,song)
 
         # If no lyrcs was found try with suggest Request
-        if len(lyrics) == 0:
+        if (status != 200):
             req = requests.get('https://api.lyrics.ovh/suggest/' + song + " " + artist)
 
             # Get Lyrcs for song
             if (req.status_code == 200 and json.loads(req.content)["data"]):
-                # Get artist and Song from first title
                 artist = json.loads(req.content)["data"][0]["artist"]["name"]
                 song = json.loads(req.content)["data"][0]["title"]
-                lyrics = getLyrics(artist, song)
+                [status, lyrics] = getLyrics(artist, song)
 
-
-        data.append({"artist": artist, "title": song, "date": date, "ranking": str(i + 1), "lyrics": lyrics})
-
-        if len(lyrics) == 0:
+        if(len(lyrics) > 0):
+            data.append({"artist": artist, "title": song, "date": date, "ranking": str(i + 1), "lyrics": lyrics})
+        else:
            print(" No lyrics was found https://api.lyrics.ovh/suggest/" + song + " " + artist)
-
 
 def getLyrics(artist, song):
     lyrics = ""
     req = requests.get('https://api.lyrics.ovh/v1/' + artist + '/' + song)
+    status = req.status_code
 
-    if(req.status_code == 200):
+    if(status == 200):
         # Decode and save lyrics content
         lyrics = json.loads(req.content.decode('utf-8'))['lyrics']
         lyrics = lyrics.replace('\r', '')
-        lyrics = lyrics.replace('\n', ' ')
-    return lyrics
+
+    return status, lyrics
 
 
 def main():
     charts_date = datetime(2018,10,7) # Startdate
-    fetch_dateS = datetime.now().strftime("%d-%m-%Y")
+    fetch_dateS = charts_date.strftime("%d-%m-%Y")
+
 
     records = 180      # how many records should be saved (80 = 20 years 06.08.2000)
     limit = 25         # songs per charts
