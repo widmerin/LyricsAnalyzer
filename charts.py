@@ -63,9 +63,9 @@ def main():
     charts_date = datetime(2018,10,7) # Startdate
     fetch_dateS = datetime.now().strftime("%d-%m-%Y")
 
-    records = 5        # how many records should be saved (80 = 20 years)
-    limit = 15         # songs per charts
-    daysdelta = 84     # 28=month, 7=week   inbetween charts
+    records = 180      # how many records should be saved (80 = 20 years 06.08.2000)
+    limit = 25         # songs per charts
+    daysdelta = 84     # 84 = quarter 28=month, 7=week   inbetween charts
 
 
     for i in range(records):
@@ -73,7 +73,6 @@ def main():
         getChartsData(charts_date.strftime("%d-%m-%Y"), limit)
         charts_date = charts_date - timedelta(days=daysdelta)  # get date from daysdelta before
 
-    print(data)
     with open('data/data-'+fetch_dateS+'.json', 'w') as outfile:
         json.dump(data, outfile)
 

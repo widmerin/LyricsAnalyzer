@@ -1,4 +1,5 @@
 # Lyrics Analyzer
+Students: Michael Job & Ina Widmer
 ## Idee
 Analyse used words in Songs ??
 
@@ -10,7 +11,7 @@ Die Lyrics werden über die API https://api.lyrics.ovh/ geholt.
 Zeitraum: 7.10.2018 - 20 Jahre zurück (Quartalsweise)
 Anz. Datensätze: Top 15 pro Datum (80 mal = 1200 Songs)
 
-Um die Daten zu generien muss das Pyhton Script ```charts.py``` ausgeführt werden
+Um die Daten zu generieren muss das Pyhton Script ```charts.py``` ausgeführt werden
 
 ## Raw Data
 Die Daten werden als Objekte in einem JSON abgelegt. 
