@@ -7,7 +7,7 @@ Are words like 'facebook' and so on since the rise of social media present in ch
 ## Datasource
 Chartsongs of the last 20 years are gathered from swiss charts website. There is no API provided, so we used webcrawling.
 
-Link: https://hitparade.ch/charts/singles/
+Link: https://hitparade.ch/charts/singles/ 
 
 Lyrics are collected over the API lyrics.ovh.  
 
