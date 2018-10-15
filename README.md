@@ -14,17 +14,17 @@ Lyrics are collected over the API lyrics.ovh.
 Link: https://api.lyrics.ovh/
 
 ### Parameters  
-Time range: from 7.10.2018 until 20 years back in time
+Time range: from 4.10.1998 to 7.10.2018
 Time slot: every three months (every 84 days)
 Songs: Top 25 songs per date
-Records: 1200 Songs
 
 ### Fetching the data
 Run Pyhton Script ```charts.py``` to fetch data and save to JSON file.
 
 ### Raw Data
 The gathered data is stored as a JSON file. 
-  
+JSON Objects: 2200
+ 
 Record sample:
 ```
 [{   

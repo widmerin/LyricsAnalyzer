@@ -4,8 +4,7 @@ import requests
 import json
 
 #  Collect swiss charts data
-#  From current date 7.10.2018) until ??
-#  Save Data as json: Song | Artist | Date | Ranking
+#  From current date 7.10.2018) until 4.10.1998
 
 data = []          # list of fetched data
 
@@ -14,7 +13,6 @@ def getChartsData(date, limit):
     page = requests.get('https://hitparade.ch/charts/singles/'+date)
 
     # Find all Links with artist and song information
-    # <a class="navb" href="/song/Imagine-Dragons/Zero-1796671" style="text-decoration:none;"><b>Imagine Dragons</b><br/>Zero</a>
     soup = BeautifulSoup(page.content, 'html.parser')
     links = soup.findAll("a", {"class": "navb"})
 
@@ -23,6 +21,7 @@ def getChartsData(date, limit):
         artist = links[i].find("b").getText()
         song = links[i].find('br').nextSibling
         print(str(i + 1) + ". " + artist + " - " + str(song))
+
         # Get Lyrcs for song with api.lyrics.ovh
         [status, lyrics] = getLyrics(artist,song)
 
@@ -36,9 +35,10 @@ def getChartsData(date, limit):
                 song = json.loads(req.content)["data"][0]["title"]
                 [status, lyrics] = getLyrics(artist, song)
 
-        if(len(lyrics) > 0):
-            data.append({"artist": artist, "title": song, "date": date, "ranking": str(i + 1), "lyrics": lyrics})
-        else:
+        # Create json object
+        data.append({"artist": artist, "title": song, "date": date, "ranking": str(i + 1), "lyrics": lyrics})
+
+        if(len(lyrics) == 0):
            print(" No lyrics was found https://api.lyrics.ovh/suggest/" + song + " " + artist)
 
 def getLyrics(artist, song):
@@ -60,7 +60,7 @@ def main():
 
     records = 100      # how many records should be saved (80 = 20 years 06.08.2000)
     limit = 25         # songs per charts
-    daysdelta = 84     # 84 = quarter 28=month, 7=week   inbetween charts
+    daysdelta = 84     # 84 = quarter(12 weeks), 28 = month(4 weeks), 7=week   inbetween charts
 
 
 
