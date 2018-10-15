@@ -56,10 +56,10 @@ def getLyrics(artist, song):
 
 def main():
     charts_date = datetime(2018,10,7) # Startdate
-    fetch_dateS = charts_date.strftime("%d-%m-%Y")
+    fetch_dateS = charts_date.now().strftime("%d-%m-%Y")
 
 
-    records = 180      # how many records should be saved (80 = 20 years 06.08.2000)
+    records = 100      # how many records should be saved (80 = 20 years 06.08.2000)
     limit = 25         # songs per charts
     daysdelta = 84     # 84 = quarter 28=month, 7=week   inbetween charts
 
