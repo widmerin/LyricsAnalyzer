@@ -1,15 +1,6 @@
 # Lyrics Analyzer
-<<<<<<< HEAD
 ## Idea
 Analyse the words used in chartsongs.
-=======
-
-## Teammember
-Michael Job & Ina Widmer
-
-## Idee
-Analyse the used words in chart songs.
->>>>>>> eec035026f70abbc34324202dd153dc3c8cffbe2
 Which words are used the most, in what year...
 Are words like 'facebook' and so on since the rise of social media present in chartsongs?
 
@@ -22,7 +13,6 @@ Lyrics are collected over the API lyrics.ovh.
 
 Link: https://api.lyrics.ovh/
 
-<<<<<<< HEAD
 ### Parameters  
 Time range: from 7.10.2018 until 20 years back in time
 Time slot: every three months (every 84 days)
@@ -34,17 +24,7 @@ Run Pyhton Script ```charts.py``` to fetch data and save to JSON file.
 
 ### Raw Data
 The gathered data is stored as a JSON file. 
-=======
   
-Zeitraum: 7.10.2018 - 20 Jahre zurück (Quartalsweise)   
-Anz. Datensätze: Top 15 pro Datum (80 mal = 1200 Songs)
-
-Um die Daten zu generieren muss das Pyhton Script ```charts.py``` ausgeführt werden
-
-## Raw Data
-Die Daten werden als JSON Objekte in einem  File gepeichert. 
->>>>>>> eec035026f70abbc34324202dd153dc3c8cffbe2
-
 Record sample:
 ```
 [{   
