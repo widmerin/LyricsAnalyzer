@@ -1,28 +1,31 @@
 # Lyrics Analyzer
-## Idee
-Analyse the used words in chart songs.
+## Idea
+Analyse the words used in chartsongs.
 Which words are used the most, in what year...
-Are words like 'facebook' and so on since the rise of social media even present in chartsongs?
+Are words like 'facebook' and so on since the rise of social media present in chartsongs?
 
-
-## Datenquellen
-Die Hitparaden Lieder der letzten 20 Jahre werden von der Schweizer Hitparaden Seite bezogen.
+## Datasource
+Chartsongs of the last 20 years are gathered from swiss charts website. There is no API provided, so we used webcrawling.
 
 Link: https://hitparade.ch/charts/singles/
 
-Die Lyrics werden über die API lyrics.ovh geholt.  
+Lyrics are collected over the API lyrics.ovh.  
 
 Link: https://api.lyrics.ovh/
 
-  
-Zeitraum: 7.10.2018 - 20 Jahre zurück (Quartalsweise)
-Anz. Datensätze: Top 15 pro Datum (80 mal = 1200 Songs)
+### Parameters  
+Time range: from 7.10.2018 until 20 years back in time
+Time slot: every three months (every 84 days)
+Songs: Top 25 songs per date
+Records: 1200 Songs
 
-Um die Daten zu generien muss das Pyhton Script ```charts.py``` ausgeführt werden
+### Fetching the data
+Run Pyhton Script ```charts.py``` to fetch data and save to JSON file.
 
-## Raw Data
-Die Daten werden als Objekte in einem JSON abgelegt. 
+### Raw Data
+The gathered data is stored as a JSON file. 
 
+Record sample:
 ```
 [{   
     "artist": "Calvin Harris & Sam Smith",  // Song interpret
@@ -33,4 +36,9 @@ Die Daten werden als Objekte in einem JSON abgelegt.
  }, 
     ...
  ]
+```  
 
+#### Projectinfo
+@author: Ina Widmer, Michael Job  
+Module: dsp Data science with Python  
+FHNW iCompetence HS18
