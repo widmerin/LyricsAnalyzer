@@ -19,12 +19,14 @@ Time slot: every three months (every 84 days)
 Songs: Top 25 songs per date
 
 ### Fetching the data
-Run Pyhton Script ```chartsLyrics.py``` to fetch data and save to JSON file.
+Fetch Date: 15.10.2018 20:02  
+Fetched data items: 2200  
+  
+Run Pyhton Script ```chartsLyrics.py``` to fetch data again and save to JSON file.
 
 ### Raw Data
-The gathered data is stored as a JSON file. 
-JSON Objects: 2200
- 
+The gathered data is stored as a JSON file.  
+
 Record sample:
 ```
 [{   
