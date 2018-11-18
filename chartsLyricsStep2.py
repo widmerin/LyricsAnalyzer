@@ -30,15 +30,14 @@ def plotTopWords(common_words, title):
     bar_width = 0.3
     opacity = 0.4
 
-    rec = plt.bar(index, count, bar_width,
+    rec = plt.barh(index, count, bar_width,
                      alpha=opacity,
                      color='b',
                      label='Ocurrences')
 
-    plt.xlabel('Word')
-    plt.ylabel('Word Count')
+    plt.xlabel('Word Count')
     plt.title('Most frequent word in lyrics ('+str(title)+")")
-    plt.xticks(index, words)
+    plt.yticks(index, words)
     plt.legend()
 
     plt.tight_layout()
