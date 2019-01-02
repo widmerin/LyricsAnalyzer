@@ -22,7 +22,7 @@ Fetch Date: 15.10.2018 20:02
 Fetched data items: 2200  
 Fetched by: Ina Widmer, Michael Job 
   
-Run Pyhton Script ```chartsLyrics.py``` to fetch data again and save to JSON file.
+Run Pyhton Script ```DataFetching.py``` to fetch data again and save to JSON file.
 ### Raw Data
 The gathered data is stored as a JSON file. The data are not filtered. Duplicate songs / lyrics are possible, if no lyrics was found for a song the lyrics attribute is empty.  
 Record sample:
@@ -38,11 +38,11 @@ Record sample:
  ]
 ```  
 #### DataStory Presentation
-###### to view DataStory.ipynb as a Presentation run:
+###### to view DataStorySlides.ipynb as a Presentation run:
 ```
-jupyter nbconvert DataStory.ipynb --to slides --post serve
+jupyter nbconvert DataStorySlides.ipynb --to slides --post serve
 ```
-this will serve the slides at http://127.0.0.1:8000/DataStory.slides.html
+this will serve the slides at http://127.0.0.1:8000/DataStorySlides.slides.html
 
 #### Projectinfo
 Module: dsp Data science with Python  

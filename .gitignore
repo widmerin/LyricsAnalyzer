@@ -104,3 +104,4 @@ venv.bak/
 .mypy_cache/
 .idea
 DataStory.slides.html
+DataStorySlides.slides.html
