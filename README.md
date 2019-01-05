@@ -22,7 +22,7 @@ Fetch Date: 15.10.2018 20:02
 Fetched data items: 2200  
 Fetched by: Ina Widmer, Michael Job 
   
-Run Pyhton Script ```DataFetching.py``` to fetch data again and save to JSON file.
+Run Pyhton Script ```DataFetching.py``` or import Module and run ```DataFetching.loadData()``` to fetch data again and save to JSON file. 
 ### Raw Data
 The gathered data is stored as a JSON file. The data are not filtered. Duplicate songs / lyrics are possible, if no lyrics was found for a song the lyrics attribute is empty.  
 Record sample:

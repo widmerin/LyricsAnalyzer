@@ -9,8 +9,8 @@ import json
 data = []  # list of fetched data
 
 
-# Get Charts data for given date
 def getChartsData(date, limit):
+    """ Get Charts data for given date """
     page = requests.get('https://hitparade.ch/charts/singles/' + date)
 
     # Find all Links with artist and song information
@@ -44,6 +44,7 @@ def getChartsData(date, limit):
 
 
 def getLyrics(artist, song):
+    """ Get lyrics for song """
     lyrics = ""
     req = requests.get('https://api.lyrics.ovh/v1/' + artist + '/' + song)
     status = req.status_code
@@ -56,7 +57,8 @@ def getLyrics(artist, song):
     return status, lyrics
 
 
-def main():
+def loadData():
+    """ Start webcrawler for chartsdata and get lyrics data for collected songs """
     charts_date = datetime(2018, 10, 7)  # Startdate
     fetch_dateS = charts_date.now().strftime("%d-%m-%Y")
 
@@ -73,6 +75,8 @@ def main():
     with open('data/data-' + fetch_dateS + '.json', 'w') as outfile:
         json.dump(data, outfile)
 
+def main():
+    loadData()
 
 if __name__ == '__main__':
     main()
